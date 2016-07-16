@@ -1,0 +1,27 @@
+---
+- hosts: all
+  remote_user: root
+  tasks:
+  - name: remove udev net rules
+    file:  path=/etc/udev/rules.d/70-persistent-net.rules state=absent
+  - name: remove udev generator rules
+    file:  path=/etc/udev/rules.d/75-persistent-net-generator.rules state=absent
+  - name: remove UUID line from eth config files
+    shell: "sed -i '/UUID/d' /etc/sysconfig/network-scripts/ifcfg-*"
+  - name: remove UUID line from eth config files
+    shell: "sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-*"
+  - name: Add OpenLogic Repo
+    yum_repository:
+      name: openlogic
+      description: OpenLogic Repo
+      baseurl: http://olcentgbl.trafficmanager.net/openlogic/7/openlogic/x86_64/
+      gpgcheck: no
+      enabled: yes
+  - name: Install Azure agent
+    yum: name=WALinuxAgent state=present
+  - name: Start & Enable waagent
+    service: name=waagent state=started enabled=yes
+  - name: waagent deprovision
+    shell: 'waagent -force -deprovision'
+  - name: Shutdown vm
+    command: shutdown now
