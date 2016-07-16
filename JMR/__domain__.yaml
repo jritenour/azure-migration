@@ -1,0 +1,12 @@
+---
+object_type: domain
+version: 1.0
+object:
+  attributes:
+    name: JMR
+    description: Jason's Domain
+    display_name: 
+    system: false
+    priority: 2
+    enabled: true
+    tenant_id: 1
