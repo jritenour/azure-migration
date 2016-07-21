@@ -8,7 +8,5 @@ object:
     inherits: 
     description: 
   fields:
-  - client_key:
-      value: v2:{rZ6OecHYeFbjnR0YqwjWM2437zJLg1xXozDb2XbJeNmjCbQEfNr4q1j+sjBZzBMd}
   - execute:
       value: get_storage_account

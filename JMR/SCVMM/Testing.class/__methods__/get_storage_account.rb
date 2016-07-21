@@ -22,19 +22,21 @@ begin
   require "active_support/core_ext"  
   require 'azure-armrest'
   
-  # Azure Connection info is provided in the schema  
-  @tenant_id = nil || $evm.object['tenant_id']  
-  @client_id = nil || $evm.object['client_id']  
-  @client_key = nil|| $evm.object.decrypt('client_key')
+  # Azure Connection info is derived from info in VMDB 
+ @provider=$evm.vmdb(:ems).find_by_type("ManageIQ::Providers::Azure::CloudManager")
+@client_id=@provider.authentication_userid
+@client_key=@provider.authentication_password
+@tenant_id=@provider.attributes['uid_ems']
+@subscription_id=@provider.subscription
 
   
   # Resource group name provided by dynamic dropdown
   dialog_field = $evm.object  
   attributes = $evm.root.attributes
-  rg = attributes['dialog_resource_group']  
+  #rg = attributes['dialog_resource_group']  
   
   
-  log(:info, "Listing Variables #{@tenant}, #{@client_id}, #{rg}")  
+  log(:info, "Listing Variables #{@tenant_id}, #{@client_id}")  
   
 
   def get_storage_account()
@@ -47,19 +49,15 @@ begin
   end
 
   storage = get_storage_account()
-#puts resources
-  sas=Azure::Armrest::StorageAccountService.new(storage)
-#puts rg.list
-  $evm.log(:info, "Listing Resource Group: #{rg}")  
-  sanames=sas.list("#{rg}").map {|x| [x["name"]]}
-#puts names
 
-$evm.log(:info, "Inspecting Resource Group  Names: #{sanames.inspect}")  
+  sas=Azure::Armrest::StorageAccountService.new(storage) 
+  sanames=sas.list_all.map {|x| [x["name"],x["name"]]}
+
+  $evm.log(:info, "Inspecting Storage Account  Names: #{sanames.inspect}")  
 
 
     # set the values  
-    dialog_field['values'] = sanames
-  
+    dialog_field['values'] = sanames.to_a
     # sort_by: value / description / none  
     dialog_field["sort_by"] = "description"  
     # sort_order: ascending / descending  
@@ -67,7 +65,7 @@ $evm.log(:info, "Inspecting Resource Group  Names: #{sanames.inspect}")
     # data_type: string / integer  
     dialog_field["data_type"] = "string"  
     # required: true / false  
-  dialog_field["required"] = "false"  
+    dialog_field["required"] = "false"  
     log(:info, "Dynamic drop down values: #{dialog_field['values']}")  
 
 end  

@@ -22,11 +22,12 @@ begin
   require "active_support/core_ext"  
   require 'azure-armrest'
   
-  # F% info is provided in the schema  
-  @tenant_id = nil || $evm.object['tenant_id']  
-  @client_id = nil || $evm.object['client_id']  
-  @client_key = nil|| $evm.object.decrypt('client_key')
-  
+@provider=$evm.vmdb(:ems).find_by_type("ManageIQ::Providers::Azure::CloudManager")
+@client_id=@provider.authentication_userid
+@client_key=@provider.authentication_password
+@tenant_id=@provider.attributes['uid_ems']
+@subscription_id=@provider.subscription
+ 
   
   log(:info, "Listing Variables #{@tenant}, #{@client_id}")  
   
@@ -44,7 +45,7 @@ resources = get_resource_group()
 #puts resources
 rg=Azure::Armrest::ResourceGroupService.new(resources)
 #puts rg.list
-names=rg.list.map{ |x| [x["name"]] }
+  names=rg.list.map{ |x| [x["name"],x["name"]] }
 #puts names
 
 $evm.log(:info, "Inspecting Resource Group  Names: #{names.inspect}")  
@@ -52,7 +53,7 @@ $evm.log(:info, "Inspecting Resource Group  Names: #{names.inspect}")
     dialog_field = $evm.object  
   
     # set the values  
-    dialog_field['values'] = names
+    dialog_field['values'] = names.to_a
   
     # sort_by: value / description / none  
     dialog_field["sort_by"] = "description"  

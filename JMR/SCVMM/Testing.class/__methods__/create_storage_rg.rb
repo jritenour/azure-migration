@@ -22,10 +22,12 @@ begin
   require "active_support/core_ext"  
   require 'azure-armrest'
   
-  # Azure Connection info is provided in the schema  
-  @tenant_id = nil || $evm.object['tenant_id']  
-  @client_id = nil || $evm.object['client_id']  
-  @client_key = nil|| $evm.object.decrypt('client_key')
+  # Azure Connection info is derived dynamically
+@provider=$evm.vmdb(:ems).find_by_type("ManageIQ::Providers::Azure::CloudManager")
+@client_id=@provider.authentication_userid
+@client_key=@provider.authentication_password
+@tenant_id=@provider.attributes['uid_ems']
+@subscription_id=@provider.subscription
   
   sa_name =  $evm.object['dialog_sa_name']  
   #location = $evm_object['dialog_location']

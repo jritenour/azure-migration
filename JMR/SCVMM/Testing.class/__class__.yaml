@@ -12,71 +12,11 @@ object:
     owner: 
   schema:
   - field:
-      aetype: attribute
-      name: tenant_id
-      display_name: 
-      datatype: string
-      priority: 1
-      owner: 
-      default_value: 
-      substitute: true
-      message: create
-      visibility: 
-      collect: 
-      scope: 
-      description: 
-      condition: 
-      on_entry: 
-      on_exit: 
-      on_error: 
-      max_retries: 
-      max_time: 
-  - field:
-      aetype: attribute
-      name: client_id
-      display_name: 
-      datatype: string
-      priority: 2
-      owner: 
-      default_value: 
-      substitute: true
-      message: create
-      visibility: 
-      collect: 
-      scope: 
-      description: 
-      condition: 
-      on_entry: 
-      on_exit: 
-      on_error: 
-      max_retries: 
-      max_time: 
-  - field:
-      aetype: attribute
-      name: client_key
-      display_name: 
-      datatype: password
-      priority: 3
-      owner: 
-      default_value:
-      substitute: true
-      message: create
-      visibility: 
-      collect: 
-      scope: 
-      description: 
-      condition: 
-      on_entry: 
-      on_exit: 
-      on_error: 
-      max_retries: 
-      max_time: 
-  - field:
       aetype: method
       name: execute
       display_name: 
       datatype: string
-      priority: 4
+      priority: 1
       owner: 
       default_value: 
       substitute: true

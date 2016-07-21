@@ -81,10 +81,12 @@ run_script=winrm.run_powershell_script(script)
                 hash.each do |k, v|
                 end
         end
-  
-  @tenant_id = nil || $evm.object['tenant_id']  
-  @client_id = nil || $evm.object['client_id']  
-  @client_key = nil|| $evm.object.decrypt('client_key')
+
+@provider=$evm.vmdb(:ems).find_by_type("ManageIQ::Providers::Azure::CloudManager")
+@client_id=@provider.authentication_userid
+@client_key=@provider.authentication_password
+@tenant_id=@provider.attributes['uid_ems']
+@subscription_id=@provider.subscription
     
     params = {
       :tenant_id=>@tenant_id,
