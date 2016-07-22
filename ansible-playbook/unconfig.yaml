@@ -14,7 +14,7 @@
     yum_repository:
       name: openlogic
       description: OpenLogic Repo
-      baseurl: http://olcentgbl.trafficmanager.net/openlogic/7/openlogic/x86_64/
+      baseurl: http://olcentgbl.trafficmanager.net/openlogic/$releasever/openlogic/x86_64/
       gpgcheck: no
       enabled: yes
   - name: Install Azure agent
