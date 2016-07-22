@@ -5,9 +5,7 @@ Storage accounts are now derived from "list_all", rather than "list", which also
 Contents of repo:
 
 1. JMR(directory) - the unzipped automate domain contents
-2. datastore_2016_07_21.zip - the zipped automate domain contents, ready for gui impomrt
-3. ansible-playbook(dir) - directory containing the ansible playbook to prep the VM for migration
-4. dialog_export_20160721_103542.yml - Sample dialog to get storage accounts
+2. ansible-playbook(dir) - directory containing the ansible playbook to prep the VM for migration
 
 
 Next steps:  
