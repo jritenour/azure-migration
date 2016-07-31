@@ -1,6 +1,12 @@
-As of 7/21, the automate code now gets Azure credentials from the Azure provider defined in CFME. Instances where multiple Azure providers are defined will be addressed at a later date.
+Updated 7/31 - The following variables are now provided from the VMDB
 
-Storage accounts are now derived from "list_all", rather than "list", which also requires a Resource group  be defined.
+- Hyper-V host credentials
+- Azure provider credentials
+
+- The following are user supplied via dynamic dialogs:
+
+- Destination storage account
+- Azure resource group
 
 Contents of repo:
 
@@ -13,4 +19,6 @@ Contents of repo:
 
 Next steps:  
 
-I've got a few more values that are hard coded that I want to make dynamic.  Once that's done, I'll be ready to put this on manageiq depot, I believe.  
+The last hard coded set of values are the VM's network configuration.  I to add code to create a public ip & put a dialoge in front of it to set hostname and such.  
+
+Also, currently the storage account & resource group dialogs are independent of each other - I need to set the SA dialog to be dependent on the resource group so that users can't select a storage account that's not in the selected resource group

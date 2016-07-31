@@ -8,7 +8,7 @@
     file:  path=/etc/udev/rules.d/75-persistent-net-generator.rules state=absent
   - name: remove UUID line from eth config files
     shell: "sed -i '/UUID/d' /etc/sysconfig/network-scripts/ifcfg-*"
-  - name: remove UUID line from eth config files
+  - name: remove HWADDR line from eth config files
     shell: "sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-*"
   - name: Add OpenLogic Repo
     yum_repository:
