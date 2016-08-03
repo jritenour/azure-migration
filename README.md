@@ -5,8 +5,8 @@ Updated 7/31 - The following variables are now provided from the VMDB
 
 - The following are user supplied via dynamic dialogs:
 
-- Destination storage account
-- Azure resource group
+-- Destination storage account
+-- Azure resource group
 
 Contents of repo:
 
@@ -19,6 +19,6 @@ Contents of repo:
 
 Next steps:  
 
-The last hard coded set of values are the VM's network configuration.  I to add code to create a public ip & put a dialoge in front of it to set hostname and such.  
+The last hard coded set of values are the VM's network configuration.  I need to add code to create a public ip & put a dialoge in front of it to set hostname and such.  
 
 Also, currently the storage account & resource group dialogs are independent of each other - I need to set the SA dialog to be dependent on the resource group so that users can't select a storage account that's not in the selected resource group
