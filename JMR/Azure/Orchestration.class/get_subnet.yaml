@@ -1,0 +1,12 @@
+---
+object_type: instance
+version: 1.0
+object:
+  attributes:
+    display_name: get_subnet
+    name: get_subnet
+    inherits: 
+    description: 
+  fields:
+  - execute:
+      value: get_subnet
