@@ -24,4 +24,4 @@
   - name: waagent deprovision
     shell: 'waagent -force -deprovision'
   - name: Shutdown vm
-    command: shutdown now
+    command: init 0
