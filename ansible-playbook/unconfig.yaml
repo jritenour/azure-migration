@@ -4,11 +4,15 @@
   tasks:
   - name: remove udev net rules
     file:  path=/etc/udev/rules.d/70-persistent-net.rules state=absent
+    when: ansible_system == "Linux"
   - name: remove udev generator rules
     file:  path=/etc/udev/rules.d/75-persistent-net-generator.rules state=absent
+    when: ansible_system == "Linux"
   - name: remove UUID line from eth config files
     shell: "sed -i '/UUID/d' /etc/sysconfig/network-scripts/ifcfg-*"
+    when: ansible_system == "Linux"
   - name: remove HWADDR line from eth config files
+    when: ansible_system == "Linux"
     shell: "sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-*"
   - name: Add OpenLogic Repo
     yum_repository:
@@ -17,11 +21,19 @@
       baseurl: http://olcentgbl.trafficmanager.net/openlogic/$releasever/openlogic/x86_64/
       gpgcheck: no
       enabled: yes
+    when: ansible_system == "Linux"
   - name: Install Azure agent
     yum: name=WALinuxAgent state=present
+    when: ansible_system == "Linux"
   - name: Start & Enable waagent
     service: name=waagent state=started enabled=yes
+    when: ansible_system == "Linux"
   - name: waagent deprovision
     shell: 'waagent -force -deprovision'
-  - name: Shutdown vm
+    when: ansible_system == "Linux"
+  - name: Shutdown Linux
     command: init 0
+    when: ansible_system == "Linux"
+  - name: Sysprep Win
+    raw: "c:\\windows\\system32\\sysprep\\sysprep.exe /oobe /shutdown"
+    when: ansible_system == "Win32NT"
