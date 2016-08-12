@@ -32,6 +32,9 @@ begin
   ipname = attributes['dialog_ipname']
   subnet = attributes['dialog_get_subnet']
   nicname = attributes['dialog_nicname']
+  vmpass = attributes['dialog_vmpass']
+  ostype = attributes['dialog_ostype']
+  size = attributes['dialog_vmsize']
   vm_mig= $evm.root['vm'] 
   name = vm_mig.name
   host = vm_mig.host
@@ -158,10 +161,10 @@ options =
   :name => name,
   :location => @location,
   :properties => {
-    :hardwareProfile => { :vmSize => 'Basic_A2' },
+    :hardwareProfile => { :vmSize => size },
     :osProfile => {
       :adminUserName => 'clouduser',
-      :adminPassword => 'pickasecurepassord',
+      :adminPassword => vmpass,
       :computerName  => name
     },
     :storageProfile => {
@@ -169,7 +172,7 @@ options =
         :createOption => 'FromImage',
         :caching      => 'ReadWrite',
         :name         => name+'.vhd',
-        :osType       => 'Linux',
+        :osType       => ostype,
         :image        => { :uri => src_uri }, # source
         :vhd          => { :uri => vhd_uri }  # target
       }

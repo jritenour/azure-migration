@@ -12,7 +12,7 @@
     dialog_groups:
     - description: 
       display: edit
-      label: Select Storage Account
+      label: Instance Information
       display_method: 
       display_method_options: 
       position: 0
@@ -100,7 +100,7 @@
       - name: get_network
         description: 
         type: DialogFieldDropDownList
-        data_type: 
+        data_type: string
         notes: 
         notes_display: 
         display: edit
@@ -111,11 +111,13 @@
         required_method_options: {}
         default_value: 
         values:
-        - - 
-          - "<Script error>"
+        - - cfme-net
+          - cfme-net
         values_method: 
         values_method_options: {}
-        options: {}
+        options:
+          :sort_by: :description
+          :sort_order: :ascending
         label: Network
         position: 2
         validator_type: 
@@ -230,6 +232,133 @@
           :protected: false
         label: Network Interface Name
         position: 5
+        validator_type: 
+        validator_rule: 
+        reconfigurable: 
+        dynamic: false
+        show_refresh_button: 
+        load_values_on_init: 
+        read_only: false
+        auto_refresh: 
+        trigger_auto_refresh: 
+        resource_action:
+          action: 
+          resource_type: DialogField
+          ae_namespace: 
+          ae_class: 
+          ae_instance: 
+          ae_message: 
+          ae_attributes: {}
+      - name: vmpass
+        description: 
+        type: DialogFieldTextBox
+        data_type: string
+        notes: 
+        notes_display: 
+        display: edit
+        display_method: 
+        display_method_options: {}
+        required: true
+        required_method: 
+        required_method_options: {}
+        default_value: ''
+        values: 
+        values_method: 
+        values_method_options: {}
+        options:
+          :protected: false
+        label: VM Password
+        position: 6
+        validator_type: 
+        validator_rule: 
+        reconfigurable: 
+        dynamic: false
+        show_refresh_button: 
+        load_values_on_init: 
+        read_only: false
+        auto_refresh: 
+        trigger_auto_refresh: 
+        resource_action:
+          action: 
+          resource_type: DialogField
+          ae_namespace: 
+          ae_class: 
+          ae_instance: 
+          ae_message: 
+          ae_attributes: {}
+      - name: ostype
+        description: 
+        type: DialogFieldDropDownList
+        data_type: string
+        notes: 
+        notes_display: 
+        display: edit
+        display_method: 
+        display_method_options: {}
+        required: true
+        required_method: 
+        required_method_options: {}
+        default_value: Linux
+        values:
+        - - Windows
+          - Windows
+        - - Linux
+          - Linux
+        values_method: 
+        values_method_options: {}
+        options:
+          :sort_by: :description
+          :sort_order: :ascending
+        label: OS Type
+        position: 7
+        validator_type: 
+        validator_rule: 
+        reconfigurable: 
+        dynamic: false
+        show_refresh_button: 
+        load_values_on_init: 
+        read_only: false
+        auto_refresh: 
+        trigger_auto_refresh: 
+        resource_action:
+          action: 
+          resource_type: DialogField
+          ae_namespace: 
+          ae_class: 
+          ae_instance: 
+          ae_message: 
+          ae_attributes: {}
+      - name: vmsize
+        description: 
+        type: DialogFieldDropDownList
+        data_type: string
+        notes: 
+        notes_display: 
+        display: edit
+        display_method: 
+        display_method_options: {}
+        required: true
+        required_method: 
+        required_method_options: {}
+        default_value: 
+        values:
+        - - Basic_A0
+          - Basic_A0
+        - - Basic_A1
+          - Basic_A1
+        - - Basic_A2
+          - Basic_A2
+        - - Basic_A3
+          - Basic_A3
+        - - Basic_A4
+          - Basic_A4
+        values_method: 
+        values_method_options: {}
+        options:
+          :sort_by: :description
+          :sort_order: :ascending
+        label: Instance Size
+        position: 8
         validator_type: 
         validator_rule: 
         reconfigurable: 

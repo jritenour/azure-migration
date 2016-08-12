@@ -1,3 +1,9 @@
+Update - 8/12 
+
+- Basic support for Windows VMs added.
+- Dialog now has option to set password for VM, choose OS type type (Windows or Linux), and select instance size
+
+
 Updated 7/31 - The following variables are now provided from the VMDB
 
 - Hyper-V host credentials

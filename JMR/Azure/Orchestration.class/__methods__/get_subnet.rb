@@ -54,7 +54,7 @@ begin
 
   subnet = Azure::Armrest::Network::VirtualNetworkService.new(net) 
   getsubs=subnet.get( vnet, rg )
-  subnames=getsubs.properties.subnets.map { |x| [x["id"], x["id"]]}
+  subnames=getsubs.properties.subnets.map { |x| [x["id"], x["name"]]}
 
   $evm.log(:info, "Inspecting Subnet Names: #{subnames.inspect}")  
 
