@@ -1,3 +1,7 @@
+NOTE:  For Linux VMs, grub must pass the following options at boot:
+'console=ttyS0 earlyprintk=ttyS0 rootdelay=300 numa=off'
+I have not automated this in Ansible yet.
+
 ##Update - 8/12 
 
 - Basic support for Windows VMs added.
