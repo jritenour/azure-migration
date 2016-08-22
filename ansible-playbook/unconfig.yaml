@@ -49,7 +49,7 @@
     
   - name: Start & Enable waagent
     service: name=walinuxagent state=started enabled=yes
-    when: ansible_os_family == "Ubunut"
+    when: ansible_os_family == "Ubuntu"
     
   - name: waagent deprovision
     shell: 'waagent -force -deprovision'
