@@ -38,26 +38,6 @@
   - name: Install Azure agent - Ubuntu # need to test on standard Debian  
     apt: name=walinuxagent state=present
     when: ansible_os_family == "Debian"
-
-  - name: Install Ubuntu 12.04 packages f
-    apt: name = linux-image-generic-lts-trusty state=present
-    when: ansible_distribution_version == "12.04"
-
-  - name: Install Ubuntu 12.04 packages 2
-    apt: name = linux-cloud-tools-generic-lts-trusty state=present
-    when: ansible_distribution_version == "12.04"
-
-  - name: Install Ubuntu 12.04 packages 3
-    apt: name = install hv-kvp-daemon-init state=present
-    when: ansible_distribution_version == "12.04"
-
-  - name: Install Ubuntu 14.04 packages
-    apt: name = "{{ item }}" state=present
-    with_items:
-         - linux-image-virtual-lts-vivid
-         - linux-lts-vivid-tools-common
-         - install hv-kvp-daemon-init
-    when: ansible_distribution_version == "14.04"
     
   - name: Install Azure agent - Suse Distros # untested  
     apt: name=WALinuxAgent state=present
