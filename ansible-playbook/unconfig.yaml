@@ -21,15 +21,24 @@
   - name: remove HWADDR line from eth config files
     when: ansible_os_family == "RedHat"
     shell: "sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-*"
-    
-  - name: Add OpenLogic Repo - RHEL/Centos/Oracle Linux
+
+  - name: Add OpenLogic Repo - RHEL/Centos/Oracle Linux 6
     yum_repository:
       name: openlogic
       description: OpenLogic Repo
-      baseurl: http://olcentgbl.trafficmanager.net/openlogic/$releasever/openlogic/x86_64/
+      baseurl: http://olcentgbl.trafficmanager.net/openlogic/6/openlogic/x86_64/
       gpgcheck: no
       enabled: yes
-    when: ansible_os_family == "RedHat"
+    when: ansible_distribution_major_version == "6"
+    
+  - name: Add OpenLogic Repo - RHEL/Centos/Oracle Linux 7
+    yum_repository:
+      name: openlogic
+      description: OpenLogic Repo
+      baseurl: http://olcentgbl.trafficmanager.net/openlogic/7/openlogic/x86_64/
+      gpgcheck: no
+      enabled: yes
+    when: ansible_distribution_major_version == "7"
     
   - name: Install Azure agent - RHEL/CentOS/Oracle Linux
     yum: name=WALinuxAgent state=present
