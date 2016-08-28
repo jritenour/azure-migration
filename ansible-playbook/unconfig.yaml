@@ -2,10 +2,14 @@
 - hosts: all
   remote_user: root
   tasks:
-  - name: Edit grub config
-    lineinfile: dest=/etc/default/grub regexp='GRUB_CMDLINE_LINUX="*' line='GRUB_CMDLINE_LINUX="rootdelay=300 console=ttyS0 earlyprintk=ttyS0 net.ifnames=0"'
+#  - name: Edit grub config
+#    lineinfile: dest=/etc/default/grub regexp='GRUB_CMDLINE_LINUX="*' line='GRUB_CMDLINE_LINUX="rootdelay=300 console=ttyS0 earlyprintk=ttyS0 net.ifnames=0"'
+#    when: ansible_system == "Linux"
+ 
+  - name: set grub config
+  - command: grubby --update-kernel=ALL --args='console=ttyS0 earlyprintk=ttyS0 rootdelay=300 numa=off'
     when: ansible_system == "Linux"
-    
+   
   - name: remove udev net rules
     file:  path=/etc/udev/rules.d/70-persistent-net.rules state=absent
     when: ansible_system == "Linux"
