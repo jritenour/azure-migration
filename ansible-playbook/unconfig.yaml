@@ -7,7 +7,7 @@
 #    when: ansible_system == "Linux"
  
   - name: set grub config
-  - command: grubby --update-kernel=ALL --args='console=ttyS0 earlyprintk=ttyS0 rootdelay=300 numa=off'
+    command: grubby --update-kernel=ALL --args='console=ttyS0 earlyprintk=ttyS0 rootdelay=300 numa=off'
     when: ansible_system == "Linux"
    
   - name: remove udev net rules
