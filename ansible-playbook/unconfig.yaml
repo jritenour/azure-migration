@@ -1,80 +1,22 @@
 ---
 - hosts: all
-  remote_user: root
-  tasks:
-#  - name: Edit grub config
-#    lineinfile: dest=/etc/default/grub regexp='GRUB_CMDLINE_LINUX="*' line='GRUB_CMDLINE_LINUX="rootdelay=300 console=ttyS0 earlyprintk=ttyS0 net.ifnames=0"'
-#    when: ansible_system == "Linux"
- 
-  - name: set grub config
-    command: grubby --update-kernel=ALL --args='console=ttyS0 earlyprintk=ttyS0 rootdelay=300 numa=off'
-    when: ansible_system == "Linux"
-   
-  - name: remove udev net rules
-    file:  path=/etc/udev/rules.d/70-persistent-net.rules state=absent
-    when: ansible_system == "Linux"
+  
+  roles: 
+    - {role: genlinux, when: ansible_system == "Linux" }
+    - {role: redhat, when: ansible_os_family == "RedHat"}
+    - {role: debian, when: ansible_os_family == "Debian"}
 
-  - name: remove udev generator rules
-    file:  path=/etc/udev/rules.d/75-persistent-net-generator.rules state=absent
-    when: ansible_system == "Linux"
-
-  - name: remove UUID line from eth config files
-    shell: "sed -i '/UUID/d' /etc/sysconfig/network-scripts/ifcfg-*"
-    when: ansible_os_family == "RedHat"
-
-  - name: remove HWADDR line from eth config files
-    when: ansible_os_family == "RedHat"
-    shell: "sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-*"
-
-  - name: Add OpenLogic Repo - RHEL/Centos/Oracle Linux 6
-    yum_repository:
-      name: openlogic
-      description: OpenLogic Repo
-      baseurl: http://olcentgbl.trafficmanager.net/openlogic/6/openlogic/x86_64/
-      gpgcheck: no
-      enabled: yes
-    when: ansible_distribution_major_version == "6"
+  tasks:  
+    - name: waagent deprovision
+      shell: 'waagent -force -deprovision'
+      when: ansible_system == "Linux"
     
-  - name: Add OpenLogic Repo - RHEL/Centos/Oracle Linux 7
-    yum_repository:
-      name: openlogic
-      description: OpenLogic Repo
-      baseurl: http://olcentgbl.trafficmanager.net/openlogic/7/openlogic/x86_64/
-      gpgcheck: no
-      enabled: yes
-    when: ansible_distribution_major_version == "7"
-    
-  - name: Install Azure agent - RHEL/CentOS/Oracle Linux
-    yum: name=WALinuxAgent state=present
-    when: ansible_os_family == "RedHat"
-    
-  - name: Install Azure agent - Ubuntu # need to test on standard Debian  
-    apt: name=walinuxagent state=present
-    when: ansible_os_family == "Debian"
-    
-  - name: Install Azure agent - Suse Distros # untested  
-    apt: name=WALinuxAgent state=present
-    when: ansible_os_family == "Suse"
-    
-  - name: Start & Enable waagent - RHEL/Centos
-    service: name=waagent state=started enabled=yes
-    when: ansible_os_family == "RedHat"
-    
-  - name: Start & Enable waagent
-    service: name=walinuxagent state=started enabled=yes
-    when: ansible_os_family == "Ubuntu"
-    
-  - name: waagent deprovision
-    shell: 'waagent -force -deprovision'
-    when: ansible_system == "Linux"
-
-    
-  - name: Shutdown Linux
-    command: init 0
-    when: ansible_system == "Linux"
-    ignore_errors: True
-    
-  - name: Sysprep Win
-    raw: "c:\\windows\\system32\\sysprep\\sysprep.exe /oobe /shutdown"
-    when: ansible_system == "Win32NT"
-    ignore_errors: True #Work-around for the fact that even though this does what it should, ansible considers it a failed task since it loses connection due to the shutdown iniated by syspre.  Will try to find a more elegant solution later.
+    - name: Shutdown Linux
+      command: init 0
+      when: ansible_system == "Linux"
+      ignore_errors: True
+      
+    - name: Sysprep Win
+      raw: "c:\\windows\\system32\\sysprep\\sysprep.exe /oobe /shutdown"
+      when: ansible_system == "Win32NT"
+      ignore_errors: True #Work-around for the fact that even though this does what it should, ansible considers it a failed task since it loses connection due to the shutdown iniated by syspre.  Will try to find a more elegant solution later.
