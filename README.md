@@ -1,3 +1,9 @@
+##Update - 9/02
+
+I've broken the Ansible playbook into roles (generic Linux, Red Hat family, Debian family, and Windows) to make things a bit more organized.  Roles execute based on gathered facts.
+
+I've also begun testing & have successfully migrated a VM from VMware to Azure using hard-coded values in Ruby.  Now I just need to incorporate into CFME and figure out how I want to organize it in relation to the Hyper-V/SCVMM specific code. 
+
 ##Update -8/20
 
 * I have broken out some RHEL/Centos specific commands in the ansible playbook and added ubuntu/debian specific commands.  I have verified the playbook works against ubuntu hosts as expected, but not within the context of the migration method.  I will test this later this weekend or Monday.
