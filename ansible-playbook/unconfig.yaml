@@ -8,6 +8,14 @@
     - {role: debian, when: ansible_os_family == "Debian"}
 
   tasks:  
+    - name: set dracut config
+      lineinfile:
+        dest: /etc/dracut.conf
+        line: add_drivers+="hv_vmbus hv_netvsc hv_storvsc"
+
+    - name: run dracut
+      shell: "dracut -f -vf"
+
     - name: waagent deprovision
       shell: 'waagent -force -deprovision'
       when: ansible_system == "Linux"

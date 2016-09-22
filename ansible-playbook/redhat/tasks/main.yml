@@ -12,6 +12,28 @@
       owner: root
       group: root
       mode: 0644
+  
+  - name: Prepare to mod dracut
+    yum:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - mdadm 
+      - cryptsetup 
+      - samba-client 
+      - samba-common 
+      - iscsi-initiator-utils
+    when: ansible_distribution_major_version == "7"
+
+#  - name: set dracut config
+#    lineinfile:
+#      dest: /etc/dracut.conf
+#      line: add_drivers+="hv_vmbus hv_netvsc hv_storvsc"
+#    when: ansible_distribution_major_version == "7"
+
+#  - name: run dracut
+#    shell: "dracut -f -vf"
+#    when: ansible_distribution_major_version == "7"
 
   - name: Add OpenLogic Repo - RHEL/Centos/Oracle Linux 6
     yum_repository:
@@ -35,14 +57,14 @@
     yum: 
       name: microsoft-hyper-v
       state: latest
-    when: ansible_virtualization_type == "VMware"
+    #when: ansible_virtualization_type == "VMware"
   
   - name: start and enable Hyper-V daemons
     service:
       name: hv_kvp_daemon
       state: started
       enabled: true
-    when: ansible_virtualization_type == "VMware"
+    #when: ansible_virtualization_type == "VMware"
 
   - name: Install Azure agent - RHEL/CentOS/Oracle Linux
     yum: name=WALinuxAgent state=present
