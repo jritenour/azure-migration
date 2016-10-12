@@ -3,7 +3,7 @@ object_type: method
 version: 1.0
 object:
   attributes:
-    name: create_storage_rg
+    name: azure_configure
     display_name: 
     description: 
     scope: instance

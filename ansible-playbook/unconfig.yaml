@@ -8,15 +8,18 @@
     - {role: debian, when: ansible_os_family == "Debian"}
 
   tasks:  
+    - name: set dracut config
+      lineinfile:
+        dest: /etc/dracut.conf
+        line: add_drivers+="hv_vmbus hv_netvsc hv_storvsc"
+
+    - name: run dracut
+      shell: "dracut -f -vf"
+
     - name: waagent deprovision
       shell: 'waagent -force -deprovision'
       when: ansible_system == "Linux"
     
-    - name: Shutdown Linux
-      command: init 0
-      when: ansible_system == "Linux"
-      ignore_errors: True
-      
     - name: Sysprep Win
       raw: "c:\\windows\\system32\\sysprep\\sysprep.exe /oobe /shutdown"
       when: ansible_system == "Win32NT"

@@ -3,10 +3,10 @@ object_type: instance
 version: 1.0
 object:
   attributes:
-    display_name: create_storage_rg
-    name: create_storage_rg
+    display_name: create_environment
+    name: create_environment
     inherits: 
     description: 
   fields:
   - execute:
-      value: create_storage_rg
+      value: create_environment

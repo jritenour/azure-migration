@@ -4,7 +4,7 @@
 begin  
   # Method for logging  
   def log(level, message)  
-    @method = 'create_storage_rg'
+    @method = 'create_environment'
     $evm.log(level, "#{@method} - #{message}")  
   end  
   
@@ -28,22 +28,22 @@ begin
 @client_key=@provider.authentication_password
 @tenant_id=@provider.attributes['uid_ems']
 @subscription_id=@provider.subscription
-  
-  sa_name =  $evm.object['dialog_sa_name']  
+@location=@provider.attributes['provider_region']  
+
   #location = $evm_object['dialog_location']
   
   
   # Resource group name provided by dynamic dropdown
   dialog_field = $evm.object  
   attributes = $evm.root.attributes
-  rg = attributes['dialog_get_resource_group']  
-  
-  
+  rg = attributes['dialog_rg_name']  
+  sa = attributes['dialog_sa_name']  
+  net= attributes['dialog_net_name']
   log(:info, "Listing Variables #{@tenant_id}, #{@client_id}, #{@client_key}")  
   
-  log(:info, "Listing Variables #{sa_name}, #{rg}")  
+  log(:info, "Listing Variables #{sa}, #{rg}")  
 
-  def get_storage_account()
+  def get_connection()
     params = {
       :tenant_id=>@tenant_id,
       :client_id=>@client_id,
@@ -52,17 +52,27 @@ begin
     response=Azure::Armrest::ArmrestService.configure(params)
   end
 
-  storage = get_storage_account()
-  sas=Azure::Armrest::StorageAccountService.new(storage)
-
-  sas.api_version = '2015-06-15'
-
-   options = {
-    :location   => 'East US', 
+  connection = get_connection()
+  resource=Azure::Armrest::ResourceGroupService.new(connection)
+  storage=Azure::Armrest::StorageAccountService.new(connection)
+  network=Azure::Armrest::Network::VirtualNetworkService.new(connection)
+  storage.api_version = '2015-06-15'
+   
+  log(:info, "Trying to create #{rg} resource group")
+  resource.create(rg,@location)
+  sleep (5)
+   optionss = {
+    :location   => @location, 
     :properties => {:accountType => 'Standard_LRS'},
     :tags       => {:my_company => true}
    }
-  sas.create(sa_name, rg, options)
+  log(:info, "Trying to create #{sa} storage account in #{rg}") 
+  storage.create(sa, rg, optionss)
+  
+  
+  log(:info, "Trying to create #{net} in #{rg}")
+  optionsn = {:location=>@location, :properties=>{:addressSpace=>{:addressPrefixes=>["10.3.0.0/16"]}}}
+  network.create(net,rg,optionsn)
 
 end  
 

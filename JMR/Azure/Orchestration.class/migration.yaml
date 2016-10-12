@@ -8,5 +8,7 @@ object:
     inherits: 
     description: 
   fields:
+  - conversion_host_pw:
+      value: v2:{8e+GeLkV2I1fdRo0gse3+g==}
   - execute:
       value: migration
