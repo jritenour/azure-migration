@@ -2,6 +2,8 @@
 
 VMware is now officially supported.  I've been working on this for a while now, and I've gone back and forth with several different methods to convert VMDKs to VHDs for Azure.  I ended up being stuck between the hard choices of either modifying CFME appliances (needing qemu-img at a minimum, and LOT of extra disk space at a custom mount point), or having the actual conversion process run on an external host that can be sspecific via dialog/schema.  I ended up going with the external host - I'd rather not require the CFME appliances be modified in any way, and doesn't scale to large environments.  Currently, the conversion process requires a Windows host, and I'm taking advantage of Microsoft's VM conversion toolkit and powershell cmdlets.  Qemu-img has given me inconsistent results with converting from vmdk to VHD that actually boots on Azure.  I'll revist this at a later time, and see if I can at least make it possible to specify a linux host & utilize qemu-img, but for now, I'm going the path of least resistance.  
 
+Note that the conversion host must have the [Microsoft Virtual Machine Converter](https://technet.microsoft.com/en-us/library/dn873998(v=ws.11).aspx) and the [Azure ARM PowerShell modules](https://azure.microsoft.com/en-us/documentation/articles/powershell-install-configure/) installed, and a significant amount of disk space. At least double the size of any virtual disks you intend to convert.  
+
 My next step is to try to tackle RHEV as a source provider.  I don't have an ETA for that at this time.  
 
 ##Update - 9/02
