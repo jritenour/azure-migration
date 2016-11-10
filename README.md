@@ -1,3 +1,8 @@
+##Update - 11/10
+In preparation for some changes coming to automation domains in CloudForms 4.2, I have decided to break out the Ansible unconfig playbook to it's own [github repo](https://github.com/jritenour/sysunconfig).  I may possibly add it to Ansible Galaxy at some point in the near future as well.  
+
+I don't expect to make any more significant changes or work on the automation method until after CloudForms 4.2 is released.  I haven't had a chance to play with the betas much at this point, but as I alluded to, there are changes to automation, and I'd rather wait until it's GA and possibly make some changes to the code structure, adding state machines for various stages of migration.  
+
 ##Update - 10/12
 
 VMware is now officially supported.  I've been working on this for a while now, and I've gone back and forth with several different methods to convert VMDKs to VHDs for Azure.  I ended up being stuck between the hard choices of either modifying CFME appliances (needing qemu-img at a minimum, and LOT of extra disk space at a custom mount point), or having the actual conversion process run on an external host that can be sspecific via dialog/schema.  I ended up going with the external host - I'd rather not require the CFME appliances be modified in any way, and doesn't scale to large environments.  Currently, the conversion process requires a Windows host, and I'm taking advantage of Microsoft's VM conversion toolkit and powershell cmdlets.  Qemu-img has given me inconsistent results with converting from vmdk to VHD that actually boots on Azure.  I'll revist this at a later time, and see if I can at least make it possible to specify a linux host & utilize qemu-img, but for now, I'm going the path of least resistance.  
