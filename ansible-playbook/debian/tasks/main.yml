@@ -1,7 +1,0 @@
----
-# tasks file for debian
-  - name: Install Azure agent - Ubuntu # need to test on standard Debian
-    apt: name=walinuxagent state=present
-
-  - name: Start & Enable waagent
-    service: name=walinuxagent state=started enabled=yes
