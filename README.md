@@ -1,3 +1,7 @@
+##Update 12/13
+
+Please see license/usage information at the bottom of this page.  
+
 ##Update - 11/10
 In preparation for some changes coming to automation domains in CloudForms 4.2, I have decided to break out the Ansible unconfig playbook to it's own [github repo](https://github.com/jritenour/sysunconfig).  I may possibly add it to Ansible Galaxy at some point in the near future as well.  
 
@@ -94,3 +98,13 @@ I've also begun testing & have successfully migrated a VM from VMware to Azure u
 At this point, you should now a have custom button show up on your VMs in your cloudforms inventory. Clicking that will invoke the migration dialog, which will make calls to the Azure provider you have defined in CloudForms to gather resource groups, and enable selection of storage accounts, networks and subnets.  At this point, these resources must be created ahead of time, I have not allowed for dynamic creation of resources (but that is on my short-term roadmap)
 
 For an overview of how it works from this point, see my video at https://www.youtube.com/watch?v=6_YA8uiA_0g
+
+# Copyright/License Info
+Copyright 2016 Jason Ritenour
+
+Licensed under the GNU General Public License Version 2.0 (or later); you may not use this work except in compliance with the License. You may obtain a copy of the License in the LICENSE file, or at:
+http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+Discourse logo and “Discourse Forum” ®, Civilized Discourse Construction Kit, Inc.
