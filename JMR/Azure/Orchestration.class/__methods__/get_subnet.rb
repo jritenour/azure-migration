@@ -46,6 +46,7 @@ begin
       :tenant_id=>@tenant_id,
       :client_id=>@client_id,
       :client_key=>@client_key,
+      :subscription_id=>@subscription_id,
     }
     response=Azure::Armrest::ArmrestService.configure(params)
   end
