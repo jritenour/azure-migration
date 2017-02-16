@@ -1,3 +1,7 @@
+## Update 2/16
+
+In order to fix an issue occuring with CloudForms 4.2, I have updated the ruby scripts under azure-migration/JMR/Azure/Orchestration.class/ to pass long the subscription_id value gathered from the Azure provider.  I have not tested further in CF 4.2, so I'm not sure if everything works beyond basic authentication.
+
 ##Update 12/13
 
 Please see license/usage information at the bottom of this page.  
