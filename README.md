@@ -1,3 +1,7 @@
+## Update 3/8/17
+
+As I started setting this up from scratch in a new environment, I realized I forgot to document the steps required for setting up the host where the powershell cmdlets will be installed & ran.  That has been added.  It also served as an opportunity to validate everything runs in CF 4.2, which was released in January.
+
 ## Update 2/16
 
 In order to fix an issue occuring with CloudForms 4.2, I have updated the ruby scripts under azure-migration/JMR/Azure/Orchestration.class/ to pass long the subscription_id value gathered from the Azure provider.  I have not tested further in CF 4.2, so I'm not sure if everything works beyond basic authentication.
