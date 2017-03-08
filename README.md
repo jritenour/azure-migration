@@ -68,6 +68,16 @@ I've also begun testing & have successfully migrated a VM from VMware to Azure u
 
 ## Instructions:
 
+### Conversion/Hyper-V host setup
+*NOTE:* Certain values are hard-coded still, and I'll alleviate that in an update in the very near future.  In the meantime, if you wish to change any of the paths from what I have specified, edit the migration method under JMR/Azure/Orchestration
+
+1. Install the [Azure ARM PowerShell modules](https://azure.microsoft.com/en-us/documentation/articles/powershell-install-configure/).
+2. If you will using VMware as your on-prem source, install the [Microsoft Virtual Machine Converter](https://technet.microsoft.com/en-us/library/dn873998(v=ws.11).aspx).
+3. Run "Login-AzureRmAccount" from a powershell window.  Enter your credentials to authenticate to Azure RM.
+4. Run "Save-AzureRMProfile -Path C:\creds\azure.txt".  This will save your token/cookie so CF can use it later.
+5. Create a directory called "images" under C:\.
+6. 
+
 ### CloudForms Automate setup:
 1. In CloudForms, navigate to Automate -> Import/Export.
 2. Export the datastore so that you have a backup.
@@ -90,6 +100,7 @@ I've also begun testing & have successfully migrated a VM from VMware to Azure u
 * Namespace = JMR/Azure
 * Class = Orchestration
 * Instance = migration
+19.  If you will be converting VMware VMs, go back to Automate -> Explorer, and edit the migration instance under JMR/Azure/Orchestration.  Input your conversion host's (the one with the powershell cmdlets & MS VM converter installed) hostname or IP address, the username & password, and the path to store converted disk images (c:\creds is that is hard-coded currently). 
 
 
 ### Ansible Tower Setup
@@ -104,9 +115,25 @@ At this point, you should now a have custom button show up on your VMs in your c
 For an overview of how it works from this point, see my video at https://www.youtube.com/watch?v=6_YA8uiA_0g
 
 # Copyright/License Info
-Copyright 2016 Jason Ritenour
 
-Licensed under the GNU General Public License Version 2.0 (or later); you may not use this work except in compliance with the License. You may obtain a copy of the License in the LICENSE file, or at:
-http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+Copyright 2017 Jason Ritenour
 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+This project is licensed under the terms of the MIT license.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
