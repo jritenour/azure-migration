@@ -1,3 +1,7 @@
+## Update 6/19/17
+
+This project is now considered deprecated - there will be no further updates or changes.  The last CloudForms version it has been verified to work with is 4.2.
+
 ## Update 3/8/17
 
 As I started setting this up from scratch in a new environment, I realized I forgot to document the steps required for setting up the host where the powershell cmdlets will be installed & ran.  That has been added.  It also served as an opportunity to validate everything runs in CF 4.2, which was released in January.
